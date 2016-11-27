@@ -1,0 +1,57 @@
+<html>
+<!-- creating the canvas -->
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+//Javascript
+var canvas;	//Canvas variable
+var canvasContext; //Canvas context
+var ballX = 50; //X coordinates of the ball
+var ballSpeedX = 15;
+
+window.onload = function()	{
+
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+	var framesPerSecond = 30;
+
+	//Timer to call drawEverything Function
+	setInterval(function(){
+		moveEverything();
+		drawEverything();		
+	}, 1000/framesPerSecond);	
+}
+
+
+function moveEverything(){
+
+// Move the ball by incrementing it by ballXSpeedX
+	ballX = ballX + ballSpeedX;
+
+// If the ball touchs the right side of the black square, bounce back, and if the ball touches the right, bounce back
+	if(ballX > canvas.width || ballX < 0) {
+		ballSpeedX = -ballSpeedX;
+	}
+}
+
+function drawEverything(){
+//Create a black rectangle	
+	colorRect(0,0, canvas.width, canvas.height, 'black')
+//Create a white rectangle, left player paddle
+	colorRect(0,210, 10, 100, 'white');	
+//Create a red ball	
+	canvasContext.fillStyle = 'white';
+	canvasContext.beginPath();
+	canvasContext.arc(ballX, 100, 10, 0, Math.PI*2, true);	
+	canvasContext.fill();
+
+}
+//new comment
+function colorRect(leftX,topY, width, height, drawColor){
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX, topY, width, height);
+}
+
+</script>
+
+</html>
